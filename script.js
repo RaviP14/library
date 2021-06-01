@@ -9,7 +9,7 @@ function book(title, author, pages, read) {
         return title + ' by ' + author + ', ' + pages + ' pages, ' + read
     }
 }
-
+let x = 2
 function addBookToLibrary() {
     //create new book (Object.create function)
     //push book into the array
@@ -20,6 +20,9 @@ function addBookToLibrary() {
     let books = new book(input1, input2, input3, input4)
     myLibrary.push(books)
     console.log(myLibrary)
+    newEntry(x)
+    x++
+    console.log(x)
 }
 
 let theHobbit = new book('The Hobbit', 'J.R.R. Tolkien', 295, 'not read yet')
@@ -30,9 +33,9 @@ myLibrary.push(gameOfThrones)
 
 let table = document.createElement('table');
 
-function newEntry() {
-    for (let i = 0; i < myLibrary.length; i++) {
-        row = table.insertRow(myLibrary[i])
+function newEntry(size) {
+    for (let i = size; i < myLibrary.length; i++) {
+        let row = table.insertRow(myLibrary[i])
         for (let j = 0; j < Object.keys(myLibrary[i]).length - 1; j++) {
             let val = row.insertCell()
             val.textContent = Object.values(myLibrary[i])[j]
@@ -40,8 +43,17 @@ function newEntry() {
     }
 }
 
-newEntry()
+newEntry(0)
 
 let mBody = document.querySelector('body');
 
 mBody.appendChild(table);
+
+let newBookBtn = document.createElement('button');
+newBookBtn.textContent = 'New Book';
+
+mBody.appendChild(newBookBtn)
+
+newBookBtn.addEventListener('click', () => {
+    addBookToLibrary()
+})
