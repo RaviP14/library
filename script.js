@@ -11,12 +11,6 @@ function book(title, author, pages, read) {
 }
 let x = 2
 function addBookToLibrary() {
-    //create new book (Object.create function)
-    //push book into the array
-    //input1 = prompt('Enter title',)
-    //input2 = prompt('Enter author',)
-    //input3 = prompt('Enter pages',)
-    //input4 = prompt('Enter reading status(read/not read)',)
     let books = new book(input1, input2, input3, input4)
     myLibrary.push(books)
     console.log(myLibrary)
@@ -54,16 +48,19 @@ newBookBtn.textContent = 'New Book';
 
 mBody.appendChild(newBookBtn)
 
-newBookBtn.addEventListener('click', () => {
-    setNewBook()
+newBookBtn.addEventListener('click', (e) => {
+    if (form.style.display == 'none') {
+        form.style.display = 'block'
+    } else if (form.style.display = 'block'){
+        setNewBook()
+    }
 })
 
 //form input
+let form = document.createElement('form')
+mBody.appendChild(form)
 
 function setNewBook () {
-    let form = document.createElement('form')
-    mBody.appendChild(form)
-
     let inputTitle = document.createElement('input');
     inputTitle.name = 'title';
     inputTitle.placeholder = 'Title'
@@ -94,16 +91,31 @@ function setNewBook () {
     submit.textContent = 'Submit'
     form.appendChild(submit);
 
+    let exit = document.createElement('button');
+    exit.className = 'exit form'
+    exit.textContent = 'X'
+    form.appendChild(exit)
+
     submit.addEventListener('click', (e) => {
-        //submit values eg transfer inputTitle.value to new book object
-        input1 = inputTitle.value.slice()
-        input2 = inputAuthor.value.slice()
-        input3 = parseFloat(inputPages.value.slice())
-        input4 = inputStatus.value.slice()
-        addBookToLibrary(input1, input2, input3, input4)
-        //book dissapeares straight after
-        console.log(myLibrary) // book dissapears after event listeners ends
+        if (!isNaN(inputPages.value)) {
+            input1 = inputTitle.value.slice()
+            input2 = inputAuthor.value.slice()
+            input3 = parseFloat(inputPages.value.slice()) 
+            input4 = inputStatus.value.slice()
+            addBookToLibrary(input1, input2, input3, input4)
+            e.preventDefault()
+            form.reset()
+            form.style.display = 'none'
+        } else {
+            alert('page is not a number') //change to red box with message
+            e.preventDefault()
+        }
+        console.log(myLibrary) 
+    })
+
+    exit.addEventListener('click', (e) => {
         e.preventDefault()
-        form.reset();
+        form.reset()
+        form.style.display = 'none'
     })
 }
