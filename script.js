@@ -10,10 +10,10 @@ function book(title, author, pages, read) {
     }
 }
 
-let theHobbit = new book('The Hobbit', 'J.R.R. Tolkien', 295, 'not read yet')
+let theHobbit = new book('The Hobbit', 'J.R.R. Tolkien', 295, 'Not Read')
 myLibrary.push(theHobbit)
 
-let gameOfThrones = new book('A Game Of Thrones', 'George R. R. Martin', 694, 'not read yet')
+let gameOfThrones = new book('A Game Of Thrones', 'George R. R. Martin', 694, 'Not Read')
 myLibrary.push(gameOfThrones)
 
 let x = myLibrary.length
@@ -128,6 +128,7 @@ function setNewBook () {
     form.appendChild(inputPages);
 
     let inputStatus = document.createElement('input');
+    inputStatus.setAttribute('type', 'checkbox')
     inputStatus.name = 'status'
     inputStatus.placeholder = 'Read Status'
     inputStatus.autocomplete = 'off'
@@ -149,12 +150,12 @@ function setNewBook () {
             input1 = inputTitle.value.slice()
             input2 = inputAuthor.value.slice()
             input3 = parseFloat(inputPages.value.slice()) 
-            input4 = inputStatus.value.slice()
+            input4 = getValue4()
             addBookToLibrary(input1, input2, input3, input4)
             e.preventDefault()
             form.reset()
             form.style.display = 'none'
-        } else {
+        } else if (isNaN(inputPages.value)) {
             alert('page is not a number') //change to red box with message
             e.preventDefault()
         }
@@ -165,4 +166,12 @@ function setNewBook () {
         form.reset()
         form.style.display = 'none'
     })
+
+    function getValue4() {
+        if (inputStatus.checked === true) {
+            return 'Read'
+        } else {
+            return 'Not Read'
+        }
+    }
 }
