@@ -9,15 +9,6 @@ function book(title, author, pages, read) {
         return title + ' by ' + author + ', ' + pages + ' pages, ' + read
     }
 }
-let x = 2
-function addBookToLibrary() {
-    let books = new book(input1, input2, input3, input4)
-    myLibrary.push(books)
-    console.log(myLibrary)
-    newEntry(x)
-    x++
-    console.log(x)
-}
 
 let theHobbit = new book('The Hobbit', 'J.R.R. Tolkien', 295, 'not read yet')
 myLibrary.push(theHobbit)
@@ -25,15 +16,72 @@ myLibrary.push(theHobbit)
 let gameOfThrones = new book('A Game Of Thrones', 'George R. R. Martin', 694, 'not read yet')
 myLibrary.push(gameOfThrones)
 
+let x = myLibrary.length
+function addBookToLibrary() {
+    if (myLibrary.length < x) {
+        x = myLibrary.length
+        let books = new book(input1, input2, input3, input4)
+        myLibrary.push(books)
+        console.log(myLibrary)
+        newEntry(x)
+        console.log(x + 'xB')
+        x++
+    } else {
+        console.log(x + 'xA1')
+        let books = new book(input1, input2, input3, input4)
+        myLibrary.push(books)
+        console.log(myLibrary)
+        newEntry(x)
+        x++
+        console.log(x + 'xA2')
+    }
+}
+
 let table = document.createElement('table');
+let rowBtn = document.createElement('button');
 
 function newEntry(size) {
     for (let i = size; i < myLibrary.length; i++) {
         let row = table.insertRow(myLibrary[i])
+        row.setAttribute('data-key', i)
         for (let j = 0; j < Object.keys(myLibrary[i]).length - 1; j++) {
             let val = row.insertCell()
             val.textContent = Object.values(myLibrary[i])[j]
         }
+        rowBtn[i] = document.createElement('button');
+        rowBtn[i].textContent = 'Delete Book'
+        rowBtn[i].className = 'deleteBook' + [i]
+        val2 = row.insertCell()
+        val2.appendChild(rowBtn[i])
+    }
+
+    for (let n = size; n < myLibrary.length; n++) {
+        //delete row(book)
+        rowBtn[n].addEventListener('click', () => {
+            if (n === myLibrary.length) {
+                n--
+                console.log(n + ' n2')
+                myLibrary.splice(n, 1)
+                console.log(myLibrary)
+                val = myLibrary.length - n
+                table.deleteRow(val)
+                n++
+            } else if (n > myLibrary.length){
+                n = 0
+                console.log(n + ' n3')
+                myLibrary.splice(n, 1)
+                console.log(myLibrary)
+                val = myLibrary.length - n
+                table.deleteRow(val)
+            }else {
+                console.log(n + ' n1')
+                myLibrary.splice(n, 1)
+                console.log(myLibrary)
+                val = myLibrary.length - n
+                table.deleteRow(val)
+                n--
+            }
+        })
     }
 }
 
@@ -56,7 +104,7 @@ newBookBtn.addEventListener('click', (e) => {
     }
 })
 
-//form input
+//form input(new book)
 let form = document.createElement('form')
 mBody.appendChild(form)
 
@@ -110,7 +158,6 @@ function setNewBook () {
             alert('page is not a number') //change to red box with message
             e.preventDefault()
         }
-        console.log(myLibrary) 
     })
 
     exit.addEventListener('click', (e) => {
