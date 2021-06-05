@@ -65,12 +65,13 @@ function newEntry(size) {
         }
         readBtn[i] = document.createElement('button');
         readBtn[i].textContent = myLibrary[i].read
+        readBtn[i].className = 'readStatus'
         val3 = row.insertCell()
         val3.appendChild(readBtn[i])
 
         rowBtn[i] = document.createElement('button');
         rowBtn[i].textContent = 'Delete Book'
-        rowBtn[i].className = 'deleteBook' + [i]
+        rowBtn[i].className = 'deleteBook'
         val2 = row.insertCell()
         val2.appendChild(rowBtn[i])
     }
@@ -125,7 +126,7 @@ mBody.appendChild(newBookBtn)
 newBookBtn.addEventListener('click', (e) => {
     if (form.style.display == 'none') {
         form.style.display = 'block'
-    } else if (form.style.display = 'block'){
+    } else if (form.style.display = 'block' && form.length === 0){
         setNewBook()
     }
 })
@@ -135,11 +136,19 @@ let form = document.createElement('form')
 mBody.appendChild(form)
 
 function setNewBook () {
+    let headTitle = document.createElement('p');
+    headTitle.textContent = 'Title'
+    form.appendChild(headTitle);
+
     let inputTitle = document.createElement('input');
     inputTitle.name = 'title';
     inputTitle.placeholder = 'Title'
     inputTitle.autocomplete = 'off'
     form.appendChild(inputTitle)
+
+    let headAuthor = document.createElement('p');
+    headAuthor.textContent = 'Author'
+    form.appendChild(headAuthor);
 
     let inputAuthor = document.createElement('input');
     inputAuthor.name = 'author'
@@ -147,11 +156,19 @@ function setNewBook () {
     inputAuthor.autocomplete = 'off'
     form.appendChild(inputAuthor);
 
+    let headPages = document.createElement('p');
+    headPages.textContent = 'Total Pages'
+    form.appendChild(headPages);
+
     let inputPages = document.createElement('input');
     inputPages.name = 'pages'
     inputPages.placeholder = 'Total Pages'
     inputPages.autocomplete = 'off'
     form.appendChild(inputPages);
+
+    let headStatus = document.createElement('p');
+    headStatus.textContent = 'Read?'
+    form.appendChild(headStatus);
 
     let inputStatus = document.createElement('input');
     inputStatus.setAttribute('type', 'checkbox')
