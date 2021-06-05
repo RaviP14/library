@@ -9,6 +9,20 @@ function book(title, author, pages, read) {
         return title + ' by ' + author + ', ' + pages + ' pages, ' + read
     }
 }
+//toggle read status
+function readStatus () {
+}
+
+readStatus.prototype.status = function () {
+   // console.log(this.read)
+    if (this.read === 'Read') {
+        return this.read = 'Not Read'
+    } else if (this.read === 'Not Read') {
+        return this.read = 'Read'
+    }
+}
+
+book.prototype = Object.create(readStatus.prototype)
 
 let theHobbit = new book('The Hobbit', 'J.R.R. Tolkien', 295, 'Not Read')
 myLibrary.push(theHobbit)
@@ -39,24 +53,36 @@ function addBookToLibrary() {
 
 let table = document.createElement('table');
 let rowBtn = document.createElement('button');
+let readBtn = document.createElement('button');
 
 function newEntry(size) {
     for (let i = size; i < myLibrary.length; i++) {
         let row = table.insertRow(myLibrary[i])
         row.setAttribute('data-key', i)
-        for (let j = 0; j < Object.keys(myLibrary[i]).length - 1; j++) {
+        for (let j = 0; j < Object.keys(myLibrary[i]).length - 2; j++) {
             let val = row.insertCell()
             val.textContent = Object.values(myLibrary[i])[j]
         }
+        readBtn[i] = document.createElement('button');
+        readBtn[i].textContent = myLibrary[i].read
+        val3 = row.insertCell()
+        val3.appendChild(readBtn[i])
+
         rowBtn[i] = document.createElement('button');
         rowBtn[i].textContent = 'Delete Book'
         rowBtn[i].className = 'deleteBook' + [i]
         val2 = row.insertCell()
         val2.appendChild(rowBtn[i])
     }
-
+    //toggle read status
+    for (let j = size; j < myLibrary.length; j++) {
+        readBtn[j].addEventListener('click', () => {
+            myLibrary[j].status()
+            readBtn[j].textContent = myLibrary[j].read
+        })
+    }
+    //delete row(book)
     for (let n = size; n < myLibrary.length; n++) {
-        //delete row(book)
         rowBtn[n].addEventListener('click', () => {
             if (n === myLibrary.length) {
                 n--
