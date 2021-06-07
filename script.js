@@ -24,18 +24,14 @@ readStatus.prototype.status = function () {
 
 book.prototype = Object.create(readStatus.prototype)
 
-let theHobbit = new book('The Hobbit', 'J.R.R. Tolkien', 295, 'Not Read')
-myLibrary.push(theHobbit)
-
-let gameOfThrones = new book('A Game Of Thrones', 'George R. R. Martin', 694, 'Not Read')
-myLibrary.push(gameOfThrones)
-
 let x = myLibrary.length
 function addBookToLibrary() {
     if (myLibrary.length < x) {
         x = myLibrary.length
         let books = new book(input1, input2, input3, input4)
         myLibrary.push(books)
+        storedBooks.push(books) //for localstorage
+        localStorage.setItem('allBooks', JSON.stringify(storedBooks));
         console.log(myLibrary)
         newEntry(x)
         console.log(x + 'xB')
@@ -44,6 +40,8 @@ function addBookToLibrary() {
         console.log(x + 'xA1')
         let books = new book(input1, input2, input3, input4)
         myLibrary.push(books)
+        storedBooks.push(books) //for localstorage
+        localStorage.setItem('allBooks', JSON.stringify(storedBooks));
         console.log(myLibrary)
         newEntry(x)
         x++
@@ -89,6 +87,8 @@ function newEntry(size) {
                 n--
                 console.log(n + ' n2')
                 myLibrary.splice(n, 1)
+                storedBooks.splice(n, 1)
+                localStorage.setItem('allBooks', JSON.stringify(storedBooks));
                 console.log(myLibrary)
                 val = myLibrary.length - n
                 table.deleteRow(val)
@@ -97,12 +97,16 @@ function newEntry(size) {
                 n = 0
                 console.log(n + ' n3')
                 myLibrary.splice(n, 1)
+                storedBooks.splice(n, 1)
+                localStorage.setItem('allBooks', JSON.stringify(storedBooks));
                 console.log(myLibrary)
                 val = myLibrary.length - n
                 table.deleteRow(val)
             }else {
                 console.log(n + ' n1')
                 myLibrary.splice(n, 1)
+                storedBooks.splice(n, 1)
+                localStorage.setItem('allBooks', JSON.stringify(storedBooks));
                 console.log(myLibrary)
                 val = myLibrary.length - n
                 table.deleteRow(val)
@@ -111,8 +115,6 @@ function newEntry(size) {
         })
     }
 }
-
-newEntry(0)
 
 let mBody = document.querySelector('body');
 
@@ -218,3 +220,36 @@ function setNewBook () {
         }
     }
 }
+
+//add array to localStorage
+localStorage.setItem('myBooks', JSON.stringify(myLibrary));
+let storedBooks = JSON.parse(localStorage.getItem('myBooks'))
+
+if (localStorage.allBooks.length > 2) {
+    storedBooks = JSON.parse(localStorage.getItem('allBooks'))
+    let getAllBooks = JSON.parse(localStorage.getItem('allBooks'))
+    console.log(getAllBooks)
+    for (l = 0; l < getAllBooks.length; l++) {
+       input1 = getAllBooks[l].title
+       input2 = getAllBooks[l].author
+       input3 = getAllBooks[l].pages
+       input4 = getAllBooks[l].read
+       let books = new book(input1, input2, input3, input4)
+       myLibrary.push(books)
+       x = myLibrary.length - 1
+       newEntry(x)
+       x = myLibrary.length
+    }
+} else { 
+    let theHobbit = new book('The Hobbit', 'J.R.R. Tolkien', 295, 'Not Read')
+    myLibrary.push(theHobbit)
+
+    let gameOfThrones = new book('A Game Of Thrones', 'George R. R. Martin', 694, 'Not Read')
+    myLibrary.push(gameOfThrones)
+    x = myLibrary.length
+    newEntry(0)
+}
+
+/*if new book is added, older books lost 
+(only books added from last open window/refresh stays) localStorage.allBooks gets overwritten
+storedbooks is empty on refresh - need storedBooks to populate with allbooks*/
