@@ -191,7 +191,7 @@ function setNewBook () {
     form.appendChild(exit)
 
     submit.addEventListener('click', (e) => {
-        if (!isNaN(inputPages.value)) {
+        if (!isNaN(inputPages.value) && inputTitle.value !== '' && inputAuthor.value !== '' && inputPages.value !== '') {
             input1 = inputTitle.value.slice()
             input2 = inputAuthor.value.slice()
             input3 = parseFloat(inputPages.value.slice()) 
@@ -200,8 +200,29 @@ function setNewBook () {
             e.preventDefault()
             form.reset()
             form.style.display = 'none'
+        } else if(inputTitle.value === '' && inputAuthor.value === '' && inputPages.value === '') {
+            alert('Fill in form')
+            e.preventDefault()
+        } else if (inputTitle.value === '' && inputAuthor.value === '') {
+            alert('Add Title & Author')
+            e.preventDefault()
+        } else if(inputTitle.value === '' && inputPages.value === ''){
+            alert('Add Title & Pages')
+            e.preventDefault()
+        } else if (inputAuthor.value === '' && inputPages.value === '') {
+            alert('Add Author & Pages')
+            e.preventDefault()
+        } else if (inputTitle.value === ''){
+            alert('Add Title')
+            e.preventDefault()
+        } else if (inputAuthor.value === ''){
+            alert('Add Author')
+            e.preventDefault()
+        } else if (inputPages.value === ''){
+            alert('Add Pages')
+            e.preventDefault()
         } else if (isNaN(inputPages.value)) {
-            alert('page is not a number') //change to red box with message
+            alert('Page is not a number') //could change to red box with message
             e.preventDefault()
         }
     })
