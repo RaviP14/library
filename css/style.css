@@ -7,8 +7,8 @@ h1 {
     text-align: center;
 }
 
-body p {
-    text-align: center;
+.intro {
+    text-align: center; 
 }
 
 table {
