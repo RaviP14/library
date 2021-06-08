@@ -122,14 +122,17 @@ mBody.appendChild(table);
 
 let newBookBtn = document.createElement('button');
 newBookBtn.textContent = 'New Book';
-
+newBookBtn.className = 'NewBook'
 mBody.appendChild(newBookBtn)
 
 newBookBtn.addEventListener('click', (e) => {
-    if (form.style.display == 'none') {
+    if (form.length === 0) {
+        setNewBook()
         form.style.display = 'block'
     } else if (form.style.display = 'block' && form.length === 0){
         setNewBook()
+    } else if (form.style.display = 'none') {
+        form.style.display = 'block'
     }
 })
 
@@ -170,6 +173,7 @@ function setNewBook () {
 
     let headStatus = document.createElement('p');
     headStatus.textContent = 'Read?'
+    headStatus.className = 'readText'
     form.appendChild(headStatus);
 
     let inputStatus = document.createElement('input');
@@ -186,7 +190,7 @@ function setNewBook () {
     form.appendChild(submit);
 
     let exit = document.createElement('button');
-    exit.className = 'exit form'
+    exit.className = 'exitForm'
     exit.textContent = 'X'
     form.appendChild(exit)
 
