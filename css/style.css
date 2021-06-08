@@ -14,15 +14,13 @@ h1 {
 table {
     margin-left: auto;
     margin-right: auto;
-    min-width: 60rem;
-    max-width: 100rem;
+    width: 60rem;
     border-collapse: collapse;
     
 }
 
 table tr {
     background-color: #cbdfe2;
-    display: table-cell;
     border-bottom: 1px solid white;
 }
 
