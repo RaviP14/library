@@ -14,7 +14,6 @@ function readStatus () {
 }
 
 readStatus.prototype.status = function () {
-   // console.log(this.read)
     if (this.read === 'Read') {
         return this.read = 'Not Read'
     } else if (this.read === 'Not Read') {
@@ -32,20 +31,15 @@ function addBookToLibrary() {
         myLibrary.push(books)
         storedBooks.push(books) //for localstorage
         localStorage.setItem('allBooks', JSON.stringify(storedBooks));
-        console.log(myLibrary)
         newEntry(x)
-        console.log(x + 'xB')
         x++
     } else {
-        console.log(x + 'xA1')
         let books = new book(input1, input2, input3, input4)
         myLibrary.push(books)
         storedBooks.push(books) //for localstorage
         localStorage.setItem('allBooks', JSON.stringify(storedBooks));
-        console.log(myLibrary)
         newEntry(x)
         x++
-        console.log(x + 'xA2')
     }
 }
 
@@ -85,29 +79,23 @@ function newEntry(size) {
         rowBtn[n].addEventListener('click', () => {
             if (n === myLibrary.length) {
                 n--
-                console.log(n + ' n2')
                 myLibrary.splice(n, 1)
                 storedBooks.splice(n, 1)
                 localStorage.setItem('allBooks', JSON.stringify(storedBooks));
-                console.log(myLibrary)
                 val = myLibrary.length - n
                 table.deleteRow(val)
                 n++
             } else if (n > myLibrary.length){
                 n = 0
-                console.log(n + ' n3')
                 myLibrary.splice(n, 1)
                 storedBooks.splice(n, 1)
                 localStorage.setItem('allBooks', JSON.stringify(storedBooks));
-                console.log(myLibrary)
                 val = myLibrary.length - n
                 table.deleteRow(val)
             }else {
-                console.log(n + ' n1')
                 myLibrary.splice(n, 1)
                 storedBooks.splice(n, 1)
                 localStorage.setItem('allBooks', JSON.stringify(storedBooks));
-                console.log(myLibrary)
                 val = myLibrary.length - n
                 table.deleteRow(val)
                 n--
@@ -226,7 +214,7 @@ function setNewBook () {
             alert('Add Pages')
             e.preventDefault()
         } else if (isNaN(inputPages.value)) {
-            alert('Page is not a number') //could change to red box with message
+            alert('Page is not a number')
             e.preventDefault()
         }
     })
@@ -253,7 +241,6 @@ let storedBooks = JSON.parse(localStorage.getItem('myBooks'))
 if (localStorage.allBooks.length > 2) {
     storedBooks = JSON.parse(localStorage.getItem('allBooks'))
     let getAllBooks = JSON.parse(localStorage.getItem('allBooks'))
-    console.log(getAllBooks)
     for (l = 0; l < getAllBooks.length; l++) {
        input1 = getAllBooks[l].title
        input2 = getAllBooks[l].author
@@ -274,7 +261,3 @@ if (localStorage.allBooks.length > 2) {
     x = myLibrary.length
     newEntry(0)
 }
-
-/*if new book is added, older books lost 
-(only books added from last open window/refresh stays) localStorage.allBooks gets overwritten
-storedbooks is empty on refresh - need storedBooks to populate with allbooks*/
