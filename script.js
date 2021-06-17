@@ -8,7 +8,7 @@ class book {
         this.read = read
     }
     info() {
-          return this.title + ' by ' + this.author + ', ' + this.pages + ' pages, ' + this.read
+        return this.title + ' by ' + this.author + ', ' + this.pages + ' pages, ' + this.read
     }
 }
 
@@ -17,9 +17,9 @@ let status = {
     status() {
       if (this.read === 'Read') {
           return this.read = 'Not Read'
-      } else if (this.read === 'Not Read') {
+        } else if (this.read === 'Not Read') {
           return this.read = 'Read'
-      }
+        }
     }
 }
 
