@@ -1,27 +1,28 @@
 let myLibrary = []
 
-function book(title, author, pages, read) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
-    this.info = function() {
-        return title + ' by ' + author + ', ' + pages + ' pages, ' + read
+class book {
+    constructor (title, author, pages, read) {
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.read = read
     }
-}
+    info() {
+          return this.title + ' by ' + this.author + ', ' + this.pages + ' pages, ' + this.read
+    }
+  }
 //toggle read status
-function readStatus () {
+let status = {
+    status() {
+      if (this.read === 'Read') {
+          return this.read = 'Not Read'
+      } else if (this.read === 'Not Read') {
+          return this.read = 'Read'
+      }
+  }
 }
 
-readStatus.prototype.status = function () {
-    if (this.read === 'Read') {
-        return this.read = 'Not Read'
-    } else if (this.read === 'Not Read') {
-        return this.read = 'Read'
-    }
-}
-
-book.prototype = Object.create(readStatus.prototype)
+Object.assign(book.prototype, status);
 
 let x = myLibrary.length
 function addBookToLibrary() {
@@ -51,7 +52,7 @@ function newEntry(size) {
     for (let i = size; i < myLibrary.length; i++) {
         let row = table.insertRow(myLibrary[i])
         row.setAttribute('data-key', i)
-        for (let j = 0; j < Object.keys(myLibrary[i]).length - 2; j++) {
+        for (let j = 0; j < Object.keys(myLibrary[i]).length - 1; j++) {
             let val = row.insertCell()
             val.textContent = Object.values(myLibrary[i])[j]
         }
