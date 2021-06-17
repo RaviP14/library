@@ -10,7 +10,8 @@ class book {
     info() {
           return this.title + ' by ' + this.author + ', ' + this.pages + ' pages, ' + this.read
     }
-  }
+}
+
 //toggle read status
 let status = {
     status() {
@@ -19,7 +20,7 @@ let status = {
       } else if (this.read === 'Not Read') {
           return this.read = 'Read'
       }
-  }
+    }
 }
 
 Object.assign(book.prototype, status);
