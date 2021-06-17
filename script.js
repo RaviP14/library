@@ -15,7 +15,7 @@ class book {
 //toggle read status
 let status = {
     status() {
-      if (this.read === 'Read') {
+        if (this.read === 'Read') {
           return this.read = 'Not Read'
         } else if (this.read === 'Not Read') {
           return this.read = 'Read'
