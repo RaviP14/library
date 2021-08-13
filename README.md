@@ -14,3 +14,4 @@ The live preview for the project is <a href = "https://ravip14.github.io/library
 - You can change read status of the books in the library to Read or Not Read using button. (present on each book)
 - Books can be deleted with **Delete Book** button on each book.
 - Form appears over library when **New Book** is pressed.(**modal**) 
+- Added **Form Validation** which checks each inputs requirements as the input is filled in and provides helpful messages if the input is incorrect.
