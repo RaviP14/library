@@ -139,7 +139,16 @@ function setNewBook () {
     inputTitle.name = 'title';
     inputTitle.placeholder = 'Title'
     inputTitle.autocomplete = 'off'
+    inputTitle.required = true
     form.appendChild(inputTitle)
+
+    inputTitle.addEventListener('input', () => {
+        if(inputTitle.validity.valueMissing) {
+            inputTitle.setCustomValidity('Your book needs a title')
+        } else {
+            inputTitle.setCustomValidity('')
+        }
+    })
 
     let headAuthor = document.createElement('p');
     headAuthor.textContent = 'Author'
@@ -149,7 +158,16 @@ function setNewBook () {
     inputAuthor.name = 'author'
     inputAuthor.placeholder = 'Author'
     inputAuthor.autocomplete = 'off'
+    inputAuthor.required = true
     form.appendChild(inputAuthor);
+
+    inputAuthor.addEventListener('input', ()=> {
+        if(inputAuthor.validity.valueMissing) {
+            inputAuthor.setCustomValidity('Your book needs an author')
+        } else {
+            inputAuthor.setCustomValidity('')
+        }
+    })
 
     let headPages = document.createElement('p');
     headPages.textContent = 'Total Pages'
@@ -159,7 +177,18 @@ function setNewBook () {
     inputPages.name = 'pages'
     inputPages.placeholder = 'Total Pages'
     inputPages.autocomplete = 'off'
+    inputPages.type = 'number'
+    inputPages.required = true
+    inputPages.min = '1'
     form.appendChild(inputPages);
+
+    inputPages.addEventListener('input', ()=> {
+        if(inputPages.validity.typeMismatch) {
+            inputPages.setCustomValidity('How many pages(number > 0) in your book?')
+        } else {
+            inputPages.setCustomValidity('')
+        }
+    })
 
     let headStatus = document.createElement('p');
     headStatus.textContent = 'Read?'
@@ -185,7 +214,10 @@ function setNewBook () {
     form.appendChild(exit)
 
     submit.addEventListener('click', (e) => {
-        if (!isNaN(inputPages.value) && inputTitle.value !== '' && inputAuthor.value !== '' && inputPages.value !== '') {
+        if (inputPages.validity.valid && inputTitle.validity.valid && inputAuthor.validity.valid) {
+            inputTitle.setCustomValidity('')
+            inputPages.setCustomValidity('')
+            inputAuthor.setCustomValidity('')
             input1 = inputTitle.value.slice()
             input2 = inputAuthor.value.slice()
             input3 = parseFloat(inputPages.value.slice()) 
@@ -194,30 +226,6 @@ function setNewBook () {
             e.preventDefault()
             form.reset()
             form.style.display = 'none'
-        } else if(inputTitle.value === '' && inputAuthor.value === '' && inputPages.value === '') {
-            alert('Fill in form')
-            e.preventDefault()
-        } else if (inputTitle.value === '' && inputAuthor.value === '') {
-            alert('Add Title & Author')
-            e.preventDefault()
-        } else if(inputTitle.value === '' && inputPages.value === ''){
-            alert('Add Title & Pages')
-            e.preventDefault()
-        } else if (inputAuthor.value === '' && inputPages.value === '') {
-            alert('Add Author & Pages')
-            e.preventDefault()
-        } else if (inputTitle.value === ''){
-            alert('Add Title')
-            e.preventDefault()
-        } else if (inputAuthor.value === ''){
-            alert('Add Author')
-            e.preventDefault()
-        } else if (inputPages.value === ''){
-            alert('Add Pages')
-            e.preventDefault()
-        } else if (isNaN(inputPages.value)) {
-            alert('Page is not a number')
-            e.preventDefault()
         }
     })
 
